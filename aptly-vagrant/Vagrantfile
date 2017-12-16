@@ -1,0 +1,26 @@
+Vagrant.configure(2) do |config|
+  hosts = {
+    'server1' => {
+      'address' => '192.0.2.40'
+    },
+    'server2' => {
+      'address' => '192.0.2.41'
+    },
+    'server3' => {
+      'address' => '192.0.2.43'
+    },
+    'server4' => {
+      'address' => '192.0.2.44'
+    }
+  }
+  
+  config.vm.box = "/home/chakraborty/Downloads/Operating_systems/ubuntu-14-64.box"
+
+  hosts.each do |host, params|
+    config.vm.define host do |host_config|
+      host_config.vm.provision :shell, path: 'provision.sh'
+      host_config.vm.network :private_network, ip: params['address']
+      host_config.vm.hostname = "#{host}.example.com"
+    end
+  end
+end

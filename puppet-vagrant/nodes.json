@@ -1,0 +1,37 @@
+{
+  "nodes": {
+    "puppetserver.example.com": {
+      ":ip": "192.168.35.5",
+      "ports": [
+        {
+          ":host": 8080,
+          ":guest": 8080,
+          ":id": "puppet"
+        },
+        {
+          ":host": 8141,
+          ":guest": 8140,
+          ":id": "puppetdb"
+        }
+      ],
+      ":memory": 4096,
+      ":box": "/home/chakraborty/Downloads/Operating_systems/centos7.box"
+    },
+    "puppetagent.example.com": {
+      ":ip": "192.168.35.10",
+      "ports": [],
+      ":memory": 1024,
+      ":box": "/home/chakraborty/Downloads/Operating_systems/centos7.box",
+      ":bootstrap": "bootstrap-agent.sh"
+    },
+    "gitlab.example.com": {
+      ":ip": "192.168.35.20",
+      "ports": [],
+      ":memory": 1024,
+      ":box": "/home/chakraborty/Downloads/Operating_systems/centos7.box",
+      ":bootstrap": "bootstrap-node-rhel.sh"
+    }
+  }
+}
+
+

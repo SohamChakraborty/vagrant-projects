@@ -1,0 +1,43 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby
+
+# This will create one Puppet server and one Puppet agent. I have the boxes downloaded locally and so I am referencing them as such.
+# Over time, I intend to move much of the specific configurations for building the boxes to a separate json file, like this repository https://github.com/garystafford/foreman-vagrant
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "/home/chakraborty/Downloads/Operating_systems/centos7.box"
+
+  config.vm.define "puppetagent" do |puppetagent_config|
+    puppetagent_config.vm.box = "/home/chakraborty/Downloads/Operating_systems/rhel-65.box"
+    puppetagent_config.vm.hostname = "puppetagent.example.com"
+    puppetagent_config.vm.provision "shell",
+      inline: "service iptables stop"
+    puppetagent_config.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
+      vb.customize ["modifyvm", :id, "--cpus", "1"]
+    end
+    puppetagent_config.vm.network :private_network, ip: "192.168.60.4"
+    puppetagent_config.vm.network :forwarded_port, guest:5000, host: 5001
+    puppetagent_config.vm.network :forwarded_port, guest: 8888, host: 8889
+    puppetagent_config.vm.network :forwarded_port, guest: 8140, host: 8141
+    puppetagent_config.vm.network :forwarded_port, guest: 8443, host: 8444
+    puppetagent_config.vm.network :forwarded_port, guest: 80, host: 8080
+    puppetagent_config.vm.network :forwarded_port, guest: 443, host: 5443
+    puppetagent_config.vm.network :forwarded_port, guest: 8080, host: 8081
+  end
+
+  config.vm.define "puppetserver" do |puppetserver_config|  
+    puppetserver_config.vm.box = "/home/chakraborty/Downloads/Operating_systems/centos7.box"
+    puppetserver_config.vm.hostname = "puppetserver.example.com"
+    puppetserver_config.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "4096"]
+      vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
+    puppetserver_config.vm.network :private_network, ip: "192.168.60.5"
+    puppetserver_config.vm.provision "shell",
+      inline: "yum -y update"
+  end
+
+end

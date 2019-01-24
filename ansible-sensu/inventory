@@ -1,0 +1,9 @@
+[sensu_masters]
+sensumaster.example.com
+
+[rabbitmq_servers]
+sensumaster.example.com
+
+[redis_servers]
+sensumaster.example.com
+

@@ -1,0 +1,43 @@
+{
+  "nodes": {
+   "sensumaster.example.com": {
+     "ip": "192.168.200.10",
+     "ports": [
+            {
+              ":host": 5673,
+              ":guest": 5672,
+              ":id": "port1"
+            }
+     ],
+     "memory": 4098,
+     "cpus": 2,
+     "box": "geerlingguy/centos7"
+   },
+   "sensu-client.example.com": {
+      "ip": "192.168.200.50",
+      "ports": [
+            {
+              ":host": 9000,
+              ":guest": 9001,
+              ":id": "test"
+            }
+      ],
+      "memory": 1024,
+      "cpus": 1,
+      "box": "geerlingguy/centos6"
+    },
+    "influx-server.example.com": {
+        "ip": "192.168.200.75",
+        "ports": [
+               {
+                 ":host": 8086,
+                 ":guest": 6808,
+                 ":id": "influx"
+              }
+        ],
+        "memory": 1204,
+        "cpus": 1,
+        "box": "geerlingguy/centos7"
+    }
+}
+}

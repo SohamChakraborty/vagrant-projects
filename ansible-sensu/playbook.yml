@@ -1,0 +1,11 @@
+---
+- hosts: sensumaster.example.com 
+  vars:
+    sensu_master: true
+    sensu_include_dashboard: true
+  name: Now roles
+  roles:
+    - sensu.sensu
+  tasks:
+    - name: Install tree
+      yum: name=tree state=present

@@ -1,0 +1,44 @@
+---
+# tasks/Ubuntu/rabbit.yml: Deploy RabbitMQ
+# Specific to Ubuntu
+
+- include_vars: "{{ ansible_distribution }}.yml"
+
+- name: Ensure the RabbitMQ APT repo GPG key is present
+  apt_key:
+    url: "{{ sensu_rabbitmq_signing_key }}"
+    state: present
+
+- name: Ensure the RabbitMQ APT repo is present
+  apt_repository:
+    repo: "{{ sensu_rabbitmq_repo }}"
+    filename: rabbitmq
+    state: present
+    update_cache: true
+
+- name: Ensure Erlang APT preferences is configured
+  template:
+    src: erlang-apt-preferences.j2
+    dest: /etc/apt/preferences.d/erlang
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Ensure the Erlang APT repo GPG key is present
+  apt_key:
+    url: "{{ sensu_rabbitmq_erlang_signing_key }}"
+    state: present
+
+- name: Ensure the Erlang APT repo is present
+  apt_repository:
+    repo: "{{ sensu_rabbitmq_erlang_repo }}"
+    filename: erlang
+    state: present
+    update_cache: true
+
+- name: Ensure RabbitMQ is installed
+  apt:
+    name: rabbitmq-server
+    state: "{{ rabbitmq_pkg_state }}"
+    cache_valid_time: 600
+    update_cache: true

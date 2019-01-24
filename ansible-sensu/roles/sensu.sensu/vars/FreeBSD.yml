@@ -1,0 +1,14 @@
+---
+# vars/FreeBSD.yml: Variables for FreeBSD
+# Defaults are defined in defaults/main.yml
+
+# Sensu config/package properties
+sensu_config_path: /usr/local/etc/sensu
+
+# RabbitMQ options
+rabbitmq_config_path: /usr/local/etc/rabbitmq
+rabbitmq_service_name: rabbitmq
+
+# Internal settings
+__bash_path: /usr/local/bin/bash
+__root_group: wheel

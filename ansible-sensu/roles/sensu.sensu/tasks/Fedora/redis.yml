@@ -1,0 +1,21 @@
+---
+# tasks/Fedora/redis.yml: Deploy redis
+# Specific to Fedora
+
+- include_vars: "{{ ansible_distribution }}.yml"
+
+- name: Ensure jemalloc is installed as a dependency of Redis
+  dnf:
+    name: jemalloc
+    state: present
+
+- name: Ensure redis is installed
+  dnf:
+    name: "{{ redis_pkg_name }}"
+    state: "{{ redis_pkg_state }}"
+
+- name: Ensure redis binds to accessible IP
+  lineinfile:
+    dest: /etc/redis.conf
+    regexp: '^bind'
+    line: 'bind 0.0.0.0'

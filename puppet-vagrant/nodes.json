@@ -15,13 +15,13 @@
         }
       ],
       ":memory": 4096,
-      ":box": "/home/chakraborty/Downloads/Operating_systems/centos7.box"
+      ":box": "centos/7"
     },
     "puppetagent.example.com": {
       ":ip": "192.168.35.10",
       "ports": [],
       ":memory": 1024,
-      ":box": "/home/chakraborty/Downloads/Operating_systems/centos7.box",
+      ":box": "centos/7",
       ":bootstrap": "bootstrap-agent.sh"
     },
     "gitlab.example.com": {
@@ -39,7 +39,7 @@
         }
       ],
       ":memory": 4096,
-      ":box": "/home/chakraborty/Downloads/Operating_systems/centos7.box",
+      ":box": "centos/7",
       ":bootstrap": "bootstrap-node-rhel.sh"
     }
   }
